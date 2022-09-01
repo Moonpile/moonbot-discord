@@ -13,6 +13,11 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
+// This actually sets the status to online
+client.once("ready", () => {
+  console.log("Ready!");
+});
+
 ready(client);
 interactionCreate(client);
 client.login(process.env.TOKEN);
