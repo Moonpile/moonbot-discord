@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node src/Bot.ts",
-    "build": "tsc --build"
+    "start": "npx ts-node src/Bot.ts"
   },
   "author": "",
   "license": "ISC",
