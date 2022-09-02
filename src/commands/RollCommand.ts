@@ -26,14 +26,22 @@ export const RollCommand: Command = {
       interaction.options.getString("diceexpression") || "1d100";
 
     const dice = new Dice(diceExpression);
-
     dice.roll();
 
-    const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
+    console.log(dice);
 
-    await interaction.followUp({
-      ephemeral: true,
-      content: content,
-    });
+    if (dice.diceParameters.errorMessage) {
+      await interaction.followUp({
+        ephemeral: true,
+        content: dice.diceParameters.errorMessage,
+      });
+    } else {
+      const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
+
+      await interaction.followUp({
+        ephemeral: true,
+        content: content,
+      });
+    }
   },
 };

@@ -3,7 +3,6 @@ import { Die } from "./Die";
 
 export class Dice {
   diceParameters!: DiceParameters;
-  errorMessage?: string;
 
   dice: Die[] = [];
 

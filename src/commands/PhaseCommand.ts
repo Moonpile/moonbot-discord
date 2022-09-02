@@ -32,7 +32,6 @@ export const PhaseCommand: Command = {
     const phases = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"];
     const phaseNames = ["New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent"]
 
-
     const content = `${phases[phasenum]}  ${phaseNames[phasenum]}`;
 
     await interaction.followUp({
