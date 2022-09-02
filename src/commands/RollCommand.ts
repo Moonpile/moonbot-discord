@@ -28,15 +28,13 @@ export const RollCommand: Command = {
     const dice = new Dice(diceExpression);
     dice.roll();
 
-    console.log(dice);
-
     if (dice.diceParameters.errorMessage) {
       await interaction.followUp({
         ephemeral: true,
         content: dice.diceParameters.errorMessage,
       });
     } else {
-      const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
+      const content = `${user} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
 
       await interaction.followUp({
         ephemeral: true,

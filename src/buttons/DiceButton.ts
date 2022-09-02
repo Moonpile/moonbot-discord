@@ -26,7 +26,7 @@ export const DiceButton: Button = {
         content: dice.diceParameters.errorMessage,
       });
     } else {
-      const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
+      const content = `${user} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
 
       await interaction.followUp({
         ephemeral: true,
