@@ -29,7 +29,7 @@ export const Roll: Command = {
 
     dice.roll();
 
-    const content = `${diceExpression} = ${dice.total}      ${dice.format}`;
+    const content = `${diceExpression} = **${dice.total}**      ${dice.format}`;
 
     await interaction.followUp({
       ephemeral: true,

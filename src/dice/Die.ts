@@ -86,7 +86,7 @@ export class Die {
         .reduce((a, b) => a + b);
       this.format = `${this.totalValue}:(${
         this.rolledValue
-      }>>${this.explodeUpDice.map((die) => die.format).join(">")})`;
+      }⇗${this.explodeUpDice.map((die) => die.format).join("⬈")})`;
     }
 
     if (this.explodeDownDice) {
@@ -95,14 +95,14 @@ export class Die {
         .reduce((a, b) => a + b);
       this.format = `${this.totalValue}:(${
         this.rolledValue
-      }<<${this.explodeDownDice.map((die) => die.format).join("<")})`;
+      }⇘${this.explodeDownDice.map((die) => die.format).join("⬊")})`;
     }
   }
 
   evaluate(): number {
     if (this.drop) {
       this.totalValue = 0;
-      this.format += "*";
+      this.format += "⨯";
       return 0;
     }
     if (this.diceParams.isThreshold && this.rolledValue) {
