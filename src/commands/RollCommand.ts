@@ -20,6 +20,8 @@ export const RollCommand: Command = {
     },
   ],
   run: async (client: Client, interaction: ChatInputCommandInteraction) => {
+    const user = interaction.user;
+
     const diceExpression =
       interaction.options.getString("diceexpression") || "1d100";
 
@@ -27,7 +29,7 @@ export const RollCommand: Command = {
 
     dice.roll();
 
-    const content = `${diceExpression} = **${dice.total}**      ${dice.format}`;
+    const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
 
     await interaction.followUp({
       ephemeral: true,

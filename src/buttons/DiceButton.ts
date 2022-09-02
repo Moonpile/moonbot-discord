@@ -12,13 +12,15 @@ import { Button } from "../Button";
 export const DiceButton: Button = {
   name: "dice",
   run: async (client: Client, interaction: MessageComponentInteraction) => {
+    const user = interaction.user;
+
     const diceExpression = interaction.customId.replace("dice-","");
 
     const dice = new Dice(diceExpression);
 
     dice.roll();
 
-    const content = `${diceExpression} = **${dice.total}**      ${dice.format}`;
+    const content = `${user.username} rolled ${diceExpression} = **${dice.total}**      ${dice.format}`;
 
     await interaction.followUp({
       ephemeral: true,
