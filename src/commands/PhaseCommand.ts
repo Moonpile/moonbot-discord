@@ -1,15 +1,13 @@
 import {
-  ApplicationCommandOptionData,
   ApplicationCommandOptionType,
   ApplicationCommandType,
   ChatInputCommandInteraction,
   Client,
-  Options,
 } from "discord.js";
 import { Dice } from "../dice/Dice";
 import { Command } from "../Command";
 
-export const Phase: Command = {
+export const PhaseCommand: Command = {
   name: "phase",
   description: `Gives a random phase of the moon.`,
   type: ApplicationCommandType.ChatInput,

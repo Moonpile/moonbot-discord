@@ -1,5 +1,6 @@
 import { Command } from "./Command";
-import { Phase } from "./commands/Phase";
-import { Roll } from "./commands/Roll";
+import { PhaseCommand } from "./commands/PhaseCommand";
+import { RollCommand } from "./commands/RollCommand";
+import { DiceCommand } from "./commands/DiceCommand";
 
-export const Commands: Command[] = [Roll, Phase];
+export const Commands: Command[] = [DiceCommand, PhaseCommand, RollCommand];
