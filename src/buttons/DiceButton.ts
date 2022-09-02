@@ -20,7 +20,7 @@ export const DiceButton: Button = {
 
     const content = `${diceExpression} = **${dice.total}**      ${dice.format}`;
 
-    await interaction.reply({
+    await interaction.followUp({
       ephemeral: true,
       content: content,
     });

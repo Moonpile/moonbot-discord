@@ -56,6 +56,24 @@ export const DiceCommand: Command = {
           .setCustomId("dice-1d12")
           .setLabel("1d12")
           .setStyle(ButtonStyle.Primary)
+      )
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("dice-1d100")
+          .setLabel("1d100")
+          .setStyle(ButtonStyle.Primary)
+      )
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("dice-2d6")
+          .setLabel("2d6")
+          .setStyle(ButtonStyle.Primary)
+      )
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId("dice-3d6")
+          .setLabel("3d6")
+          .setStyle(ButtonStyle.Primary)
       );
     const row3 = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(

@@ -44,6 +44,7 @@ const handleButtonPress = async (
   let buttonFound = false;
   for (const button of Buttons) {
     if (interaction.customId.startsWith(button.name)) {
+      await interaction.deferReply();
       button.run(client, interaction);
       buttonFound = true;
       exit;
