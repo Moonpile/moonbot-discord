@@ -26,8 +26,6 @@ if (!token || !clientId || !guildId || !applicationId) {
 
   console.log("Bot is starting...");
 
-  console.log(token);
-
   const client = new Client({
     intents: [GatewayIntentBits.Guilds],
   });
