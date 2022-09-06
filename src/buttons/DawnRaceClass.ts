@@ -66,30 +66,28 @@ function addEntry(table: string[], entry: string, num: number): void {
 
 function raceTable(): string[] {
   const table: string[] = [];
-  addEntry(table, "Human", 14);
-  addEntry(table, "Elf (can't be Druids)", 4);
+  addEntry(table, "Human", 20);
+  addEntry(table, "Elf (Can't be Druids/Green Folk)", 4);
   addEntry(table, "Dwarf", 5);
   addEntry(table, "Halfling", 3);
   addEntry(table, "Half Orc", 1);
   addEntry(table, "Half Elf", 2);
-  addEntry(table, "Gnome", 1);
-  console.log("RACE COUNT", table.length);
+  addEntry(table, "Gnome (Can't be Druids/Green Folk)", 1);
   return table;
 }
 
 function classTable(): string[] {
   const table: string[] = [];
-  addEntry(table, "Barbarian", 4);
-  addEntry(table, "Bard", 1);
+  addEntry(table, "Barbarian", 6);
+  addEntry(table, "Bard", 2);
   addEntry(table, "Cleric", 3);
-  addEntry(table, "Druid", 1);
-  addEntry(table, "Fighter", 6);
+  addEntry(table, "Druid (Green Folk is bonus feat.  If Elf or Gnome, re-roll)", 3);
+  addEntry(table, "Fighter", 10);
   addEntry(table, "Monk", 1);
-  addEntry(table, "Paladin", 2);
-  addEntry(table, "Ranger", 4);
-  addEntry(table, "Rogue", 5);
+  addEntry(table, "Paladin", 3);
+  addEntry(table, "Ranger", 5);
+  addEntry(table, "Rogue", 8);
   addEntry(table, "Sorcerer", 1);
-  addEntry(table, "Wizard", 2);
-  console.log("Class Count", table.length);
+  addEntry(table, "Wizard", 3);
   return table;
 }

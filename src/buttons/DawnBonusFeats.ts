@@ -76,6 +76,7 @@ function featsTable(): string[] {
   addEntry(table, "Durable", 1);
   addEntry(table, "Fey Touched", 1);
   addEntry(table, "Great Weapon Master", 1);
+  addEntry(table, "Green Folk (homebrew, Elf and Gnome cannot select Green Folk, can re-roll bonus feat if they don't like the other two choices.)", 5);
   addEntry(table, "Healer", 1);
   addEntry(table, "Inspiring Leader (Cha 13+)", 1);
   addEntry(table, "Keen Mind", 1);
