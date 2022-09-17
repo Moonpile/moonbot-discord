@@ -36,7 +36,7 @@ export const DawnRaceClassButton: Button = {
     rollResultText += `Second Choice\n`
                     + `Race: ${raceDice.diceParameters.diceExpression} rolled ${raceDice.total} = **${races[raceDice.total! - 1]}**\n`
                     + `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${classes[classDice.total! - 1]}**\n\n`
-                    + `You can always choose to be human.`;
+                    + `You can always choose to be human instead of the race you rolled above.\n\n`;
 
     const feats = featsTable();
 
@@ -44,21 +44,21 @@ export const DawnRaceClassButton: Button = {
 
     const rolledFeats: string[] = [];
 
+    const featsRolls: number[] = [];
     for (let i = 0; i < 3; ) {
       featsDice.roll();
-      const thisFeat = feats[featsDice.total!];
+      featsRolls.push(featsDice.total!);
+      const thisFeat = feats[featsDice.total! - 1];
       if (!rolledFeats.includes(thisFeat)) {
         rolledFeats.push(thisFeat);
         i++;
       }
     }
     
-    rollResultText +=
-      `\n` +
-      `Choose one of the following bonus feats:\n`;
+    rollResultText += `Choose one of the following bonus feats:\n`;
 
-    for (const feat of rolledFeats) {
-      rollResultText += `- **${feat}**\n`;
+    for (let i = 0; i < 3; i++) {
+      rollResultText += `Rolled ${featsRolls[i]} = **${rolledFeats[i]}**\n`;
     }
 
     if (raceDice.diceParameters.errorMessage) {
