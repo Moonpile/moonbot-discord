@@ -17,13 +17,7 @@ export const DawnCommand: Command = {
       .addComponents(
         new ButtonBuilder()
           .setCustomId("dawn-race-class")
-          .setLabel("Roll Race/Class")
-          .setStyle(ButtonStyle.Primary)
-      )
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId("dawn-bonus-feats")
-          .setLabel("Roll Bonus Feat")
+          .setLabel("Roll Race/Class and Bonus Feat")
           .setStyle(ButtonStyle.Primary)
       );
     await interaction.followUp({

@@ -38,6 +38,29 @@ export const DawnRaceClassButton: Button = {
                     + `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${classes[classDice.total! - 1]}**\n\n`
                     + `You can always choose to be human.`;
 
+    const feats = featsTable();
+
+    const featsDice = new Dice("1d" + feats.length);
+
+    const rolledFeats: string[] = [];
+
+    for (let i = 0; i < 3; ) {
+      featsDice.roll();
+      const thisFeat = feats[featsDice.total!];
+      if (!rolledFeats.includes(thisFeat)) {
+        rolledFeats.push(thisFeat);
+        i++;
+      }
+    }
+    
+    rollResultText +=
+      `\n` +
+      `Choose one of the following bonus feats:\n`;
+
+    for (const feat of rolledFeats) {
+      rollResultText += `- **${feat}**\n`;
+    }
+
     if (raceDice.diceParameters.errorMessage) {
       await interaction.followUp({
         ephemeral: true,
@@ -49,8 +72,12 @@ export const DawnRaceClassButton: Button = {
         ephemeral: true,
         content: "Class Dice: " + raceDice.diceParameters.errorMessage,
       });
-    }
-    else {
+    } else if (featsDice.diceParameters.errorMessage) {
+      await interaction.followUp({
+        ephemeral: true,
+        content: "Feats Dice: " + featsDice.diceParameters.errorMessage,
+      });
+    } else {
       await interaction.followUp({
         ephemeral: true,
         content: rollResultText,
@@ -89,5 +116,58 @@ function classTable(): string[] {
   addEntry(table, "Rogue", 8);
   addEntry(table, "Sorcerer", 1);
   addEntry(table, "Wizard", 3);
+  return table;
+}
+
+function featsTable(): string[] {
+  const table: string[] = [];
+  addEntry(table, "Actor", 1);
+  addEntry(table, "Alert", 1);
+  addEntry(table, "Athlete", 1);
+  addEntry(table, "Charger", 1);
+  addEntry(table, "Chef", 1);
+  addEntry(table, "Crossbow Expert", 1);
+  addEntry(table, "Crusher", 1);
+  addEntry(table, "Defensive Duelist (Dex 13+)", 1);
+  addEntry(table, "Dual Wielder", 1);
+  addEntry(table, "Dungeon Delver", 1);
+  addEntry(table, "Durable", 1);
+  addEntry(table, "Fey Touched", 1);
+  addEntry(table, "Great Weapon Master", 1);
+  addEntry(
+    table,
+    "Green Folk (homebrew, Elf and Gnome cannot select Green Folk, can re-roll bonus feat if they don't like the other two choices.)",
+    5
+  );
+  addEntry(table, "Healer", 1);
+  addEntry(table, "Inspiring Leader (Cha 13+)", 1);
+  addEntry(table, "Keen Mind", 1);
+  addEntry(table, "Lightly Armored", 1);
+  addEntry(table, "Linguist", 1);
+  addEntry(table, "Lucky", 1);
+  addEntry(table, "Mage Slayer", 1);
+  addEntry(table, "Magic Initiate", 1);
+  addEntry(table, "Martial Adept", 1);
+  addEntry(table, "Mobile", 1);
+  addEntry(table, "Mounted Combatant", 1);
+  addEntry(table, "Observant", 1);
+  addEntry(table, "Piercer", 1);
+  addEntry(table, "Poisoner", 1);
+  addEntry(table, "Polearm Master", 1);
+  addEntry(table, "Resilient", 1);
+  addEntry(table, "Savage Attacker", 1);
+  addEntry(table, "Sentinel", 1);
+  addEntry(table, "Shadow Touched", 1);
+  addEntry(table, "Sharpshooeter", 1);
+  addEntry(table, "Shield Master", 1);
+  addEntry(table, "Skill Expert", 1);
+  addEntry(table, "Skilled", 1);
+  addEntry(table, "Skulker (Dex 13+)", 1);
+  addEntry(table, "Slasher", 1);
+  addEntry(table, "Tavern Brawler", 1);
+  addEntry(table, "Telekinetic", 1);
+  addEntry(table, "Telepathic", 1);
+  addEntry(table, "Tough", 1);
+  addEntry(table, "Weapon Master", 1);
   return table;
 }
