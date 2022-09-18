@@ -1,6 +1,6 @@
-import { Client, MessageComponentInteraction } from "discord.js";
+import { ButtonInteraction, Client } from "discord.js";
 
 export interface Button {
     name: string,
-    run: (client: Client, interaction: MessageComponentInteraction) => void;
+    run: (client: Client, interaction: ButtonInteraction) => void;
 }

@@ -1,20 +1,28 @@
 import {
   ChatInputCommandInteraction,
   Client,
-  MessageComponentInteraction,
   Interaction,
+  ButtonInteraction,
+  SelectMenuInteraction,
 } from "discord.js";
 import { exit } from "process";
+import { Selects } from "../Selects";
 import { Buttons } from "../Buttons";
 import { Commands } from "../Commands";
 
 export default (client: Client): void => {
   client.on("interactionCreate", async (interaction: Interaction) => {
     if (interaction.isChatInputCommand()) {
-      await handleSlashCommand(client, interaction);
+      await handleSlashCommand(
+        client,
+        interaction as ChatInputCommandInteraction
+      );
     }
     if (interaction.isButton()) {
-      await handleButtonPress(client, interaction);
+      await handleButtonPress(client, interaction as ButtonInteraction);
+    }
+    if (interaction.isSelectMenu()) {
+      await handleSelectionMade(client, interaction as SelectMenuInteraction);
     }
   });
 };
@@ -39,7 +47,7 @@ const handleSlashCommand = async (
 
 const handleButtonPress = async (
   client: Client,
-  interaction: MessageComponentInteraction
+  interaction: ButtonInteraction
 ): Promise<void> => {
   let buttonFound = false;
   for (const button of Buttons) {
@@ -55,4 +63,22 @@ const handleButtonPress = async (
       content: `No Button found for /${interaction.customId}`,
     });
   }
+};
+
+const handleSelectionMade = async (
+  client: Client,
+  interaction: SelectMenuInteraction
+): Promise<void> => {
+  const selectAction = Selects.find((s) => s.name === interaction.customId);
+
+  if (!selectAction) {
+    interaction.followUp({
+      content: `No Select action found for /${interaction.customId}`,
+    });
+    return;
+  }
+
+  await interaction.deferReply();
+
+  selectAction.run(client, interaction);
 };

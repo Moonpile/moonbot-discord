@@ -177,6 +177,11 @@ file-type@^17.1.6:
     strtok3 "^7.0.0-alpha.9"
     token-types "^5.0.0-alpha.2"
 
+foswig@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/foswig/-/foswig-3.0.1.tgz#c27e171cea980ac36d5a1f7fc432f758136051ac"
+  integrity sha512-dYTbKXy9P1TEaRZWfoaBTczAVfIYHNi071wqXgd2oZMTBR3QtzfsrU6jHODGI2nCeQmcPCNc0tUCrTH6y4fe9A==
+
 ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"

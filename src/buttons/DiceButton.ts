@@ -1,9 +1,6 @@
 import {
-  ApplicationCommandOptionType,
-  ApplicationCommandType,
-  ChatInputCommandInteraction,
+  ButtonInteraction,
   Client,
-  MessageComponentInteraction,
 } from "discord.js";
 import { Dice } from "../dice/Dice";
 import { Command } from "../Command";
@@ -11,7 +8,7 @@ import { Button } from "../Button";
 
 export const DiceButton: Button = {
   name: "dice",
-  run: async (client: Client, interaction: MessageComponentInteraction) => {
+  run: async (client: Client, interaction: ButtonInteraction) => {
     const user = interaction.user;
 
     const diceExpression = interaction.customId.replace("dice-","");
