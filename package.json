@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node src/Bot.ts",
-    "start-drop-add-commands": "npx ts-node src/Bot.ts dont-drop-add-commands"
+    "start-dont-drop-add-commands": "npx ts-node src/Bot.ts dont-drop-add-commands"
   },
   "author": "",
   "license": "ISC",

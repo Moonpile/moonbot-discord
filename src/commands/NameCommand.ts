@@ -28,6 +28,38 @@ export const NameCommand: Command = {
           {
             label: "Corbindian (Southern), Male",
             value: "corbindian-southern-male",
+          },
+          {
+            label: "Corbindian (Northern), Female",
+            value: "corbindian-northern-female",
+          },
+          {
+            label: "Corbindian (Northern), Male",
+            value: "corbindian-northern-male",
+          },
+          {
+            label: "Oswindingas, Female",
+            value: "oswindingas-female",
+          },
+          {
+            label: "Oswindingas, Male",
+            value: "oswindingas-male",
+          },
+          {
+            label: "Wala, Female",
+            value: "wala-female",
+          },
+          {
+            label: "Wala, Male",
+            value: "wala-male",
+          },
+          {
+            label: "Halfling, Female",
+            value: "halfling-female",
+          },
+          {
+            label: "Halfling, Male",
+            value: "halfling-male",
           }
         )
     );
