@@ -4,6 +4,7 @@ A Discord bot for various things.
 * /d - Displays a "dice tray" of buttons which you can click to roll the preset dice.
 * /phase `phase number (optional)` - Displays a random phase of the moon, or the phase associated with the optional phase number.
 * /r `dice  expression` - Rolls the dice described in the expression.
+* /name - displays a drop down from which you can select a name base.  After making a selection it generates ten names from that namebase using Markov generation.  Names with asterisk (*) are "duplicates" from the list.
 ## Dice Syntax
 ### Dice Expression Examples
 * 3d6 - sum three six-sided dice.
