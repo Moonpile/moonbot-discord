@@ -1,11 +1,6 @@
-import {
-  ButtonInteraction,
-  Client,
-} from "discord.js";
+import { ButtonInteraction, Client } from "discord.js";
 import { Dice } from "../dice/Dice";
 import { Button } from "../Button";
-
-
 
 export const DawnRaceClassButton: Button = {
   name: "dawn-race-class",
@@ -21,18 +16,27 @@ export const DawnRaceClassButton: Button = {
     const classDice = new Dice("1d" + classes.length);
     classDice.roll();
 
-    let rollResultText = `${user} is generating a new character.\n`
-                    + `First Choice\n`
-                    + `Race: ${raceDice.diceParameters.diceExpression} rolled ${raceDice.total} = **${races[raceDice.total! - 1]}**\n`
-                    + `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${classes[classDice.total! - 1]}**\n\n`;
+    let race = races[raceDice.total! - 1];
+    let charclass = correctClass(race, classes[classDice.total! - 1]);
+
+    let rollResultText =
+      `${user} is generating a new character.\n` +
+      `First Choice\n` +
+      `Race: ${raceDice.diceParameters.diceExpression} rolled ${raceDice.total} = **${race}**\n` +
+      `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${charclass}**\n\n`;
 
     raceDice.roll();
     classDice.roll();
 
-    rollResultText += `Second Choice\n`
-                    + `Race: ${raceDice.diceParameters.diceExpression} rolled ${raceDice.total} = **${races[raceDice.total! - 1]}**\n`
-                    + `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${classes[classDice.total! - 1]}**\n\n`
-                    + `You can always choose to be human instead of the race you rolled above.\n\n`;
+    race = races[raceDice.total! - 1];
+    charclass = correctClass(race, classes[classDice.total! - 1]);
+
+    rollResultText +=
+      `Second Choice\n` +
+      `Race: ${raceDice.diceParameters.diceExpression} rolled ${raceDice.total} = **${race}**\n` +
+      `Class: ${classDice.diceParameters.diceExpression} rolled ${classDice.total} = **${charclass}**\n\n` +
+      `You can always choose to be **Human** instead of the race you rolled above.\n` +
+      `You can always choose to be a **Fighter** or **Rogue** instead of the class you rolled above.\n\n`;
 
     const feats = featsTable();
 
@@ -50,11 +54,22 @@ export const DawnRaceClassButton: Button = {
         i++;
       }
     }
-    
+
     rollResultText += `Choose one of the following bonus feats:\n`;
 
     for (let i = 0; i < 3; i++) {
-      rollResultText += `Rolled ${featsRolls[i]} = **${rolledFeats[i]}**\n`;
+      rollResultText += `Rolled ${featsRolls[i]} = **${rolledFeats[i]}**`;
+
+      if (rolledFeats[i] === "Green Folk") {
+        let feyFeat = "";
+        while (feyFeat === "Green Folk" || feyFeat === "") {
+          featsDice.roll();
+          feyFeat = feats[featsDice.total! - 1];
+        }
+        rollResultText += ` (If Elf or Gnome take **${feyFeat}** instead)`;
+      }
+
+      rollResultText += "\n";
     }
 
     if (raceDice.diceParameters.errorMessage) {
@@ -62,8 +77,7 @@ export const DawnRaceClassButton: Button = {
         ephemeral: true,
         content: "Race Dice: " + raceDice.diceParameters.errorMessage,
       });
-    }
-    else if (classDice.diceParameters.errorMessage) {
+    } else if (classDice.diceParameters.errorMessage) {
       await interaction.followUp({
         ephemeral: true,
         content: "Class Dice: " + raceDice.diceParameters.errorMessage,
@@ -82,6 +96,21 @@ export const DawnRaceClassButton: Button = {
   },
 };
 
+function correctClass(race: string, charclass: string): string {
+  if (race === "Elf" || race === "Gnome") {
+    if (charclass.startsWith("Druid")) {
+      let tempClass = "";
+      while (tempClass.startsWith("Druid") || tempClass === "") {
+        const classes = classTable();
+        const classDice = new Dice("1d" + classes.length);
+        classDice.roll();
+        tempClass = classes[classDice.total! - 1];
+      }
+      return tempClass;
+    }
+  }
+  return charclass;
+}
 
 function addEntry(table: string[], entry: string, num: number): void {
   for (var i = 0; i < num; i++) table.push(entry);
@@ -90,12 +119,12 @@ function addEntry(table: string[], entry: string, num: number): void {
 function raceTable(): string[] {
   const table: string[] = [];
   addEntry(table, "Human", 20);
-  addEntry(table, "Elf (Can't be Druids/Green Folk)", 4);
+  addEntry(table, "Elf", 4);
   addEntry(table, "Dwarf", 5);
   addEntry(table, "Halfling", 3);
   addEntry(table, "Half Orc", 1);
   addEntry(table, "Half Elf", 2);
-  addEntry(table, "Gnome (Can't be Druids/Green Folk)", 1);
+  addEntry(table, "Gnome", 1);
   return table;
 }
 
@@ -104,7 +133,7 @@ function classTable(): string[] {
   addEntry(table, "Barbarian", 6);
   addEntry(table, "Bard", 2);
   addEntry(table, "Cleric", 3);
-  addEntry(table, "Druid (Green Folk is bonus feat.  If Elf or Gnome, re-roll)", 3);
+  addEntry(table, "Druid (Take Green Folk as Bonus Feat, regardless)", 3);
   addEntry(table, "Fighter", 10);
   addEntry(table, "Monk", 1);
   addEntry(table, "Paladin", 3);
@@ -130,11 +159,7 @@ function featsTable(): string[] {
   addEntry(table, "Durable", 1);
   addEntry(table, "Fey Touched", 1);
   addEntry(table, "Great Weapon Master", 1);
-  addEntry(
-    table,
-    "Green Folk (homebrew, Elf and Gnome cannot select Green Folk, can re-roll bonus feat if they don't like the other two choices.)",
-    5
-  );
+  addEntry(table, "Green Folk", 5);
   addEntry(table, "Healer", 1);
   addEntry(table, "Inspiring Leader (Cha 13+)", 1);
   addEntry(table, "Keen Mind", 1);
